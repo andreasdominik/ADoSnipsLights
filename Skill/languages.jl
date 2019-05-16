@@ -1,15 +1,17 @@
 TEXTS_DE = Dict(
-:iam => "Ich bin dein Assistent",
-:isay => "Ich soll sagen",
-:bravo => "Bravo, du hast erfolgreich das Template installiert!",
-:noname => "Ich finde keinen Namen in der config Datei!",
-:dunno => "Ich habe nicht verstanden was ich sagen soll!"
+:which_lamp => "Ich habe nicht verstanden welche Lampe ich schalten soll",
+:what_to_do => "Ich habe nicht verstanden was ich mit dem Licht machen soll",
+:no_matched_light => "Ich finde kein passendes Licht!",
+:ok => "OK",
+:script_error => "Das Skript zur Steuerung der Shellybulb konnte nicht ausgeführt werden!",
+:error_gpio_cmd => "Über GPIO kann das Licht nur ein- und ausgeschaltet werden!"
 )
 
 TEXTS_EN = Dict(
-:iam => "I am yor home assistant",
-:isay => "You told me to say",
-:bravo => "Bravo, you managed to install the template!",
-:noname => "My name is not configured in the config file!",
-:dunno => "I did not catch what you want me to say!"
+:which_lamp => "I could not detect which light to switch!",
+:what_to_do => "I could not detect what to do with the light!",
+:no_matched_light => "No matched light found!",
+:ok => "OK",
+:script_error => "Error executing the control script for Shellybulb!",
+:error_gpio_cmd => "GPIO controlled light only can be switched on or off!"
 )

@@ -6,7 +6,7 @@
 #
 
 lang = Snips.getConfig(:language)
-const LANG = (lang != nothing) ? lang : "de"
+const LANG = lang
 
 # DO NOT CHANGE THE FOLLOWING 3 LINES UNLESS YOU KNOW
 # WHAT YOU ARE DOING!
@@ -18,35 +18,80 @@ const DEVELOPER_NAME = "andreasdominik"
 Snips.setDeveloperName(DEVELOPER_NAME)
 Snips.setModule(@__MODULE__)
 
+
+# Bash-script to control shellybulb:
+#
+const SHELLYBULB_SCRIPT = "controlShellyBulb.sh"
+
+# the list of lights as defined in the intent.
+# all other devices are ignored:
+#
+const LIGHTS = ["wall_light", "main_light", "floor_light", "TV_light",
+                "light"]
+
+
 # Slots:
 # Name of slots to be extracted from intents:
 #
-const SLOT_WORD = "a_word"
+const SLOT_ROOM = "room"
+const SLOT_DEVICE = "device"
+const SLOT_ON_OFF = "on_or_off"
+const SLOT_LIGHT_SETTINGS ="light_settings"
 
-# name of entry in config.ini:
+# Device names in intent:
 #
-const INI_MY_NAME = "my_name"
+const INTENT_LIGHT = "light"
+const INTENT_WALL_LIGHT = "wall_light"
+const INTENT_MAIN_LIGHT = "main_light"
+const INTENT_FLOOR_LIGHT = "floor_light"
+const INTENT_TV_LIGHT = "TV_light"
 
+# map settings and commands from intent to
+# api commands:
 #
-# link between actions and intents:
-# intent is linked to action{Funktion}
-# the action is only matched, if
-#   * intentname matches and
-#   * if the siteId matches, if site is  defined in config.ini
-#     (such as: "switch TV in room abc").
+const COMMANDS = Dict("ON" => "ON",
+                "OFF" => "OFF",
+                "colour" => "COLOUR",
+                "white" => "WHITE",
+                "warm" => "WARM",
+                "cold" => "COLD",
+                "red" => "RED",
+                "orange" => "ORANGE",
+                "green" => "GREEN",
+                "blue" => "BLUE",
+                "pink" => "PINK",
+                "dark" => "DARK",
+                "bright" => "BRIGHT",
+                "dark" => "DARK",
+                "medium_bright" => "MEDIUM"
+               )
+
+# Stepsizes for settings:
 #
+const TEMP_STEP = 900
+const BRIGHTNESS_STEP = 25
+const COLOURS_STEP = [(255,0,0),
+                (255,153,0),
+                (204,255,0),
+                (51,255,0),
+                (0,255,102),
+                (0,255,255),
+                (0,102,255),
+                (51,0,255),
+                (204,0,255),
+                (255,0,153)]
+
 # Language-dependent settings:
 #
 if LANG == "de"
-    Snips.registerIntentAction("pleaseRepeatDE", DEVELOPER_NAME,
-                                @__MODULE__, templateAction)
+    Snips.registerIntentAction("ADoSnipsOnOffDE", switchLight)
+    Snips.registerIntentAction("SetLightsSettings", setLightSettings)
     TEXTS = TEXTS_DE
 elseif LANG == "en"
-    Snips.registerIntentAction("pleaseRepeatEN", DEVELOPER_NAME,
-                                @__MODULE__, templateAction)
-    TEXTS = TEXTS_EN
+    println("[ADoSnipsLights]: Language en is not yet supported!")
+    # Snips.registerIntentAction("ADoSnipsOnOffDE", switchLight)
+    # Snips.registerIntentAction("SetLightsSettings", setLightSettings)
+    # TEXTS = TEXTS_EN
 else
-    Snips.registerIntentAction("pleaseRepeatEN", DEVELOPER_NAME,
-                                @__MODULE__, templateAction)
-    TEXTS = TEXTS_EN
+    println("[ADoSnipsLights]: Language $LANG is not supported!")
 end

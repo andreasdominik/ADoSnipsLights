@@ -11,35 +11,148 @@
 #   as Symbols (Julia-style)
 #
 """
-function templateAction(topic, payload)
+function switchLight(topic, payload)
 
-    Dummyaction for the template.
+    Switch a light on or off (from unified OnOff-Intent).
 """
-function templateAction(topic, payload)
+function switchLight(topic, payload)
 
-    # log:
-    println("- ADoSnipsTemplate: action templateAction() started.")
-
-    # get my name from config.ini:
+    println("- ADoSnipsLights: action switchLight() started.")
+    # find the device and room:
     #
-    myName = Snips.getConfig(INI_MY_NAME)
-    if myName == nothing
-        Snips.publishEndSession(TEXTS[:noname])
+    slots = extractSlots(payload)
+
+    # ignore intent if it is not a light!
+    #
+    if  !(slots[:device] in LIGHTS)
+        println("- ADoSnipsLights: device $(slots[:device]) ignored.")
         return false
     end
 
-    # get the word to repeat from slot:
-    #
-    word = Snips.extractSlotValue(payload, SLOT_WORD)
-    if word == nothing
-        Snips.publishEndSession(TEXTS[:dunno])
+    if slots[:device] == nothing
+        Snips.publishEndSession(TEXTS[:which_lamp])
         return true
     end
 
-    # say who you are:
+    if !(slots[:onOrOff] in ["ON", "OFF"])
+        Snips.publishEndSession(TEXTS[:what_to_do])
+        return true
+    end
+
+
+    # get matched devices from config.ini and find correct one:
     #
-    Snips.publishSay(TEXTS[:bravo], lang = LANG)
-    Snips.publishEndSession("""$(TEXTS[:iam]) $myName.
-                            $(TEXTS[:isay]) $word""")
+    matchedDevices = getDevicesFromConfig(slots)
+
+    if length(matchedDevices) < 1
+        Snips.publishEndSession(TEXTS[:no_matched_light])
+        return true
+    else
+        Snips.publishEndSession(TEXTS[:ok])
+        for d in matchedDevices
+            doSwitch(d, slots[:onOrOff])
+        end
+    end
+    return true  # follow up without hotword necessray
+end
+
+
+
+
+"""
+function setLightSettings(topic, payload)
+
+    Modifies the settings of a light (but no ON/OFF)
+"""
+function setLightSettings(topic, payload)
+
+    println("- ADoSnipsLights: action setLightSettings() started.")
+
+    # find the device and room:
+    #
+    slots = extractSlots(payload)
+    if slots[:device] == nothing
+        Snips.publishEndSession(TEXTS[:which_lamp])
+        return true
+    end
+
+    if slots[:settings] == nothing
+        Snips.publishEndSession(TEXTS[:what_to_do])
+        return true
+    end
+
+
+    # get matched devices from config.ini and find correct one:
+    #
+    matchedDevices = getDevicesFromConfig(slots)
+
+    if length(matchedDevices) < 1
+        Snips.publishEndSession(TEXTS[:no_matched_light])
+        return false
+    else
+        Snips.publishEndSession(TEXTS[:ok])
+        for d in matchedDevices
+            doSwitch(d, slots[:settings])
+        end
+    end
     return true
+end
+
+
+
+
+
+
+function extractSlots(payload)
+
+    slots = Dict()
+    slots[:room] = Snips.extractSlotValue(payload, SLOT_ROOM)
+    if slots[:room] == nothing
+        slots[:room] = Snips.getSiteId()
+    end
+
+    slots[:device] = Snips.extractSlotValue(payload, SLOT_DEVICE)
+    slots[:onOrOff] = Snips.extractSlotValue(payload, SLOT_ON_OFF)
+    slots[:settings] = Snips.extractSlotValue(payload, SLOT_LIGHT_SETTINGS)
+
+    return slots
+end
+
+
+
+
+function getDevicesFromConfig(slots)
+
+    devices = Snips.getConfig(:devices)
+    if devices isa AbstractString
+        devices = [devices]
+    end
+
+    println(devices)
+    println(slots)
+
+
+    # add all light in room for INTENT_LIGHT
+    # or only devices with correct name:
+    #
+    matchedDevices = []
+    if slots[:device] == INTENT_LIGHT
+        for d in devices
+            dParams = Snips.getConfig(d)
+            if  dParams[1] == slots[:room]
+                push!(matchedDevices, d)
+            end
+        end
+    else
+        for d in devices
+            dParams = Snips.getConfig(d)
+            println(dParams)
+            if  dParams[1] == slots[:room] && dParams[2] == slots[:device]
+                push!(matchedDevices, d)
+            end
+        end
+    end
+    println(matchedDevices)
+
+    return matchedDevices
 end
