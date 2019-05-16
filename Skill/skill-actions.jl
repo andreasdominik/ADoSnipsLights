@@ -24,6 +24,10 @@ function switchLight(topic, payload)
 
     # ignore intent if it is not a light!
     #
+    if  slots == nothing
+        println("- ADoSnipsLights: no device found in intent.")
+        return false
+    end
     if  !(slots[:device] in LIGHTS)
         println("- ADoSnipsLights: device $(slots[:device]) ignored.")
         return false
