@@ -11,11 +11,11 @@
 #   as Symbols (Julia-style)
 #
 """
-function switchLight(topic, payload)
+function switchLight(intent, payload)
 
     Switch a light on or off (from unified OnOff-Intent).
 """
-function switchLight(topic, payload)
+function switchLight(intent, payload)
 
     println("- ADoSnipsLights: action switchLight() started.")
     # find the device and room:
@@ -64,11 +64,11 @@ end
 
 
 """
-function setLightSettings(topic, payload)
+function setLightSettings(intent, payload)
 
     Modifies the settings of a light (but no ON/OFF)
 """
-function setLightSettings(topic, payload)
+function setLightSettings(intent, payload)
 
     println("- ADoSnipsLights: action setLightSettings() started.")
 
