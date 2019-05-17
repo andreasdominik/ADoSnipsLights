@@ -13,12 +13,12 @@ end
 # This function is executed to run a
 # skill action in the module.
 #
-function callbackRun(fun, topic, payload)
+function callbackRun(fun, intent, payload)
 
     Snips.setSiteId(payload[:siteId])
     Snips.setSessionId(payload[:sessionId])
-    Snips.setIntent(topic)
-    result = fun(topic, payload)
+    Snips.setIntent(intent)
+    result = fun(intent, payload)
 
     # fix, if the action does not return true or false:
     #
