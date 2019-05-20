@@ -18,6 +18,7 @@ function callbackRun(fun, topic, payload)
     Snips.setSiteId(payload[:siteId])
     Snips.setSessionId(payload[:sessionId])
     Snips.setTopic(topic)
+    println("try to execute $fun")
     result = fun(topic, payload)
 
     # fix, if the action does not return true or false:
