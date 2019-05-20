@@ -15,8 +15,11 @@ end
 #
 function callbackRun(fun, topic, payload)
 
-    Snips.setSiteId(payload[:siteId])
-    Snips.setSessionId(payload[:sessionId])
+    if occursin(r"^hermes/intent/", topic)
+        Snips.setSiteId(payload[:siteId])
+        Snips.setSessionId(payload[:sessionId])
+    end
+    
     Snips.setTopic(topic)
     println("try to execute $fun")
     result = fun(topic, payload)

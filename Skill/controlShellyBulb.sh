@@ -14,6 +14,8 @@
 IP=$1
 CMD=$2
 
+TIMEOUT=10
+
 if [ $CMD == RGB ] ; then
   RED=$3
   GREEN=$4
@@ -94,10 +96,10 @@ esac
 
 
 if [ $URL != unused ] ; then
-  curl -v http://${IP}${URL} > "shellybulb.json"
+  curl -v -m $TIMEOUT http://${IP}${URL} > "shellybulb.json"
 fi
 if [ $URL2 != unused ] ; then
-  curl -v http://${IP}${URL2}
+  curl -v -m $TIMEOUT http://${IP}${URL2}
 fi
 
 cat "shellybulb.json"
