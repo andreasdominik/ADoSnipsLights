@@ -17,7 +17,7 @@ Switch a light on or off (from unified OnOff-Intent).
 """
 function switchLight(topic, payload)
 
-    println("- ADoSnipsLights: action switchLight() started.")
+    println("[ADoSnipsLights]: action switchLight() started.")
     # find the device and room:
     #
     slots = extractSlots(payload)
@@ -70,7 +70,7 @@ Modifies the settings of a light (but no ON/OFF)
 """
 function setLightSettings(topic, payload)
 
-    println("- ADoSnipsLights: action setLightSettings() started.")
+    println("[ADoSnipsLights]: action setLightSettings() started.")
 
     # find the device and room:
     #
@@ -127,7 +127,7 @@ The trigger must have the following JSON format:
 """
 function triggerLight(topic, payload)
 
-    println("- ADoSnipsLights: action triggerLight() started.")
+    println("[ADoSnipsLights]: action triggerLight() started.")
 
     # abort if the trigger payload is not complete:
     #
