@@ -11,9 +11,9 @@
 #   as Symbols (Julia-style)
 #
 """
-function switchLight(topic, payload)
+    function switchLight(topic, payload)
 
-    Switch a light on or off (from unified OnOff-Intent).
+Switch a light on or off (from unified OnOff-Intent).
 """
 function switchLight(topic, payload)
 
@@ -64,9 +64,9 @@ end
 
 
 """
-function setLightSettings(topic, payload)
+    function setLightSettings(topic, payload)
 
-    Modifies the settings of a light (but no ON/OFF)
+Modifies the settings of a light (but no ON/OFF)
 """
 function setLightSettings(topic, payload)
 
@@ -104,6 +104,70 @@ end
 
 
 
+#
+# Functions to be executed from a system trigger:
+#
+"""
+    function triggerLight(topic, payload)
+
+Switch a light on or off (from a QnD system trigger).
+The trigger must have the following JSON format:
+    {
+      "target" : "qnd/trigger/andreasdominik:ADoSnipsLights",
+      "origin" : "ADoSnipsScheduler",
+      "time" : timeString,
+      "trigger" : {
+        "room" : "default",
+        "device" : "floor_lamp",
+        "onOrOff" : "ON",
+        "settings" : "undefined"
+      }
+    }
+
+"""
+function triggerLight(topic, payload)
+
+    println("- ADoSnipsLights: action triggerLight() started.")
+
+    # abort if the trigger payload is not complete:
+    #
+    haskey( payload, :trigger) || return false
+    trigger = payload[:trigger]
+
+    haskey( trigger, :room) || return false
+    haskey( trigger, :device) || return false
+    haskey( trigger, :onOrOff) || return false
+    haskey( trigger, :settings) || return false
+
+    # find the device and room:
+    #
+    slots = trigger
+
+    # ignore intent if it is not a light.
+    # ignore intent if it is not ON or OFF:
+    #
+    slots[:device] in LIGHTS || return false
+    slots[:onOrOff] in ["ON", "OFF"] || return false
+
+    # get matched devices from config.ini and find correct one:
+    #
+    matchedDevices = getDevicesFromConfig(slots)
+
+    if length(matchedDevices) < 1
+        return false
+    else
+        for d in matchedDevices
+            doSwitch(d, slots[:onOrOff])
+        end
+    end
+    return false  # follow up with hotword
+end
+
+
+
+#
+# API funs:
+#
 
 
 

@@ -95,3 +95,7 @@ elseif LANG == "en"
 else
     println("[ADoSnipsLights]: Language $LANG is not supported!")
 end
+
+# add system triggers:
+#
+Snips.registerTriggerAction("ADoSnipsLights", triggerLight)
