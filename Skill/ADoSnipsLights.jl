@@ -29,6 +29,6 @@ include("config.jl")
 include("exported.jl")
 
 
-export getIntentActions, callBackrun
+export getIntentActions, callbackRun
 
 end
