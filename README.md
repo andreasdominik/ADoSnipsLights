@@ -27,4 +27,4 @@ For the moment, only German and English are supported.
 
 For more details and installation of the framework look
 in the documentation of the
-[ADoSnipsQnD-framework](https://github.com/andreasdominik/ADoSnipsQnd/dev).
+[ADoSnipsQnD-framework](https://github.com/andreasdominik/ADoSnipsQnD/dev/).
