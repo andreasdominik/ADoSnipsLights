@@ -21,10 +21,11 @@ function switchLight(topic, payload)
     # find the device and room:
     #
     slots = extractSlots(payload)
+    println(slots)
 
     # ignore intent if it is not a light!
     #
-    if  slots == nothing
+    if  slots == nothing || slots[:device] == nothing
         println("- ADoSnipsLights: no device found in intent.")
         return false
     end
@@ -33,10 +34,6 @@ function switchLight(topic, payload)
         return false
     end
 
-    if slots[:device] == nothing
-        Snips.publishEndSession(TEXTS[:which_lamp])
-        return true
-    end
 
     if !(slots[:onOrOff] in ["ON", "OFF"])
         Snips.publishEndSession(TEXTS[:what_to_do])
