@@ -3,6 +3,11 @@ TEXTS_DE = Dict(
 :what_to_do => "Ich habe nicht verstanden was ich mit dem Licht machen soll",
 :no_matched_light => "Ich finde kein passendes Licht!",
 :ok => "OK",
+:ok => "bitte",
+:ok => "bitte sehr",
+:ok => "ja",
+:ok => "mach ich",
+:ok => "wird gemacht",
 :script_error => "Das Skript zur Steuerung der Shellybulb konnte nicht ausgeführt werden!",
 :error_gpio_cmd => "Über GPIO kann das Licht nur ein- und ausgeschaltet werden!"
 )
