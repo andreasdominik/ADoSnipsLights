@@ -6,7 +6,7 @@
 #
 
 lang = Snips.getConfig(:language)
-const LANG = lang
+const LANG = (lang != nothing) ? lang : "de"
 
 # DO NOT CHANGE THE FOLLOWING 3 LINES UNLESS YOU KNOW
 # WHAT YOU ARE DOING!
@@ -49,21 +49,21 @@ const INTENT_TV_LIGHT = "TV_light"
 # map settings and commands from intent to
 # api commands:
 #
-const COMMANDS = Dict("ON" => "ON",
-                "OFF" => "OFF",
-                "colour" => "COLOUR",
-                "white" => "WHITE",
-                "warm" => "WARM",
-                "cold" => "COLD",
-                "red" => "RED",
-                "orange" => "ORANGE",
-                "green" => "GREEN",
-                "blue" => "BLUE",
-                "pink" => "PINK",
-                "dark" => "DARK",
-                "bright" => "BRIGHT",
-                "dark" => "DARK",
-                "medium_bright" => "MEDIUM"
+const COMMANDS = Dict("ON", "ON",
+                "OFF", "OFF",
+                "colour", "COLOUR",
+                "white", "WHITE",
+                "warm", "WARM",
+                "cold", "COLD",
+                "red", "RED",
+                "orange", "ORANGE",
+                "green", "GREEN",
+                "blue", "BLUE",
+                "pink", "PINK",
+                "dark", "DARK",
+                "bright", "BRIGHT",
+                "dark", "DARK",
+                "medium_bright", "MEDIUM"
                )
 
 # Stepsizes for settings:
@@ -86,14 +86,12 @@ const COLOURS_STEP = [(255,0,0),
 if LANG == "de"
     Snips.registerIntentAction("ADoSnipsOnOffDE", switchLight)
     Snips.registerIntentAction("SetLightsSettings", setLightSettings)
-    TEXTS = TEXTS_DE
 elseif LANG == "en"
     Snips.printLog("Language en is not yet supported!")
     # Snips.registerIntentAction("ADoSnipsOnOffDE", switchLight)
     # Snips.registerIntentAction("SetLightsSettings", setLightSettings)
-    # TEXTS = TEXTS_EN
 else
-    Snips.printLog("Language en is not yet supported!")
+    Snips.printLog("Language $LANG is not yet supported!")
 end
 
 # add system triggers:

@@ -36,7 +36,7 @@ function switchLight(topic, payload)
 
 
     if !(slots[:onOrOff] in ["ON", "OFF"])
-        Snips.publishEndSession(TEXTS[:what_to_do])
+        Snips.publishEndSession(:what_to_do)
         return true
     end
 
@@ -46,10 +46,10 @@ function switchLight(topic, payload)
     matchedDevices = getDevicesFromConfig(slots)
 
     if length(matchedDevices) < 1
-        Snips.publishEndSession(TEXTS[:no_matched_light])
+        Snips.publishEndSession(:no_matched_light)
         return true
     else
-        Snips.publishEndSession(TEXTS[:ok])
+        Snips.publishEndSession(:ok)
         for d in matchedDevices
             doSwitch(d, slots[:onOrOff])
         end
@@ -73,12 +73,12 @@ function setLightSettings(topic, payload)
     #
     slots = extractSlots(payload)
     if slots[:device] == nothing
-        Snips.publishEndSession(TEXTS[:which_lamp])
+        Snips.publishEndSession(:which_lamp)
         return true
     end
 
     if slots[:settings] == nothing
-        Snips.publishEndSession(TEXTS[:what_to_do])
+        Snips.publishEndSession(:what_to_do)
         return true
     end
 
@@ -88,10 +88,10 @@ function setLightSettings(topic, payload)
     matchedDevices = getDevicesFromConfig(slots)
 
     if length(matchedDevices) < 1
-        Snips.publishEndSession(TEXTS[:no_matched_light])
+        Snips.publishEndSession(:no_matched_light)
         return false
     else
-        Snips.publishEndSession(TEXTS[:ok])
+        Snips.publishEndSession(:ok)
         for d in matchedDevices
             doSwitch(d, slots[:settings])
         end

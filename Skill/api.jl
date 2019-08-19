@@ -30,7 +30,7 @@ function doSwitch(deviceId, command)
             changeShellybulbValues(ip, command)
         end
     else
-        Snips.publishSay(TEXTS[:what_to_do], lang = LANG)
+        Snips.publishSay(:what_to_do, lang = LANG)
     end
 end
 
@@ -118,7 +118,7 @@ function switchShellybulb(ip, apiCommand, params = nothing)
         shellcmd = `$MODULE_DIR/$SHELLYBULB_SCRIPT $ip $apiCommand $(split(params))`
     end
     Snips.printDebug("$shellcmd")
-    Snips.tryrun(shellcmd, wait = true, errorMsg = TEXTS[:script_error])
+    Snips.tryrun(shellcmd, wait = true, errorMsg = :script_error)
 end
 
 
