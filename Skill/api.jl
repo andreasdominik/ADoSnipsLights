@@ -117,7 +117,7 @@ function switchShellybulb(ip, apiCommand, params = nothing)
     else
         shellcmd = `$MODULE_DIR/$SHELLYBULB_SCRIPT $ip $apiCommand $(split(params))`
     end
-    println(">>> $shellcmd")
+    Snips.printDebug("$shellcmd")
     Snips.tryrun(shellcmd, wait = true, errorMsg = TEXTS[:script_error])
 end
 

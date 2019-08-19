@@ -88,12 +88,12 @@ if LANG == "de"
     Snips.registerIntentAction("SetLightsSettings", setLightSettings)
     TEXTS = TEXTS_DE
 elseif LANG == "en"
-    println("[ADoSnipsLights]: Language en is not yet supported!")
+    Snips.printLog("Language en is not yet supported!")
     # Snips.registerIntentAction("ADoSnipsOnOffDE", switchLight)
     # Snips.registerIntentAction("SetLightsSettings", setLightSettings)
     # TEXTS = TEXTS_EN
 else
-    println("[ADoSnipsLights]: Language $LANG is not supported!")
+    Snips.printLog("Language en is not yet supported!")
 end
 
 # add system triggers:

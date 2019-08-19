@@ -17,20 +17,20 @@ Switch a light on or off (from unified OnOff-Intent).
 """
 function switchLight(topic, payload)
 
-    println("[ADoSnipsLights]: action switchLight() started.")
+    Snips.printLog("action switchLight() started.")
     # find the device and room:
     #
     slots = extractSlots(payload)
-    println(slots)
+    Snips.printDebug(slots)
 
     # ignore intent if it is not a light!
     #
     if  slots == nothing || slots[:device] == nothing
-        println("- ADoSnipsLights: no device found in intent.")
+        Snips.printLog("no device found in intent.")
         return false
     end
     if  !(slots[:device] in LIGHTS)
-        println("- ADoSnipsLights: device $(slots[:device]) ignored.")
+        Snips.printLog("device $(slots[:device]) ignored.")
         return false
     end
 
@@ -67,7 +67,7 @@ Modifies the settings of a light (but no ON/OFF)
 """
 function setLightSettings(topic, payload)
 
-    println("[ADoSnipsLights]: action setLightSettings() started.")
+    Snips.printLog("action setLightSettings() started.")
 
     # find the device and room:
     #
@@ -124,7 +124,7 @@ The trigger must have the following JSON format:
 """
 function triggerLight(topic, payload)
 
-    println("[ADoSnipsLights]: action triggerLight() started.")
+    Snips.printLog("action triggerLight() started.")
 
     # abort if the trigger payload is not complete:
     #
@@ -193,8 +193,8 @@ function getDevicesFromConfig(slots)
         devices = [devices]
     end
 
-    println(devices)
-    println(slots)
+    Snips.printDebud(devices)
+    Snips.printDebud(slots)
 
 
     # add all light in room for INTENT_LIGHT
@@ -211,13 +211,13 @@ function getDevicesFromConfig(slots)
     else
         for d in devices
             dParams = Snips.getConfig(d)
-            println(dParams)
+            Snips.printDebug(dParams)
             if  dParams[1] == slots[:room] && dParams[2] == slots[:device]
                 push!(matchedDevices, d)
             end
         end
     end
-    println(matchedDevices)
+    Snips.printDebug(matchedDevices)
 
     return matchedDevices
 end
