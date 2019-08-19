@@ -193,8 +193,8 @@ function getDevicesFromConfig(slots)
         devices = [devices]
     end
 
-    Snips.printDebud(devices)
-    Snips.printDebud(slots)
+    Snips.printDebug(devices)
+    Snips.printDebug(slots)
 
 
     # add all light in room for INTENT_LIGHT
