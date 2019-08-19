@@ -49,21 +49,21 @@ const INTENT_TV_LIGHT = "TV_light"
 # map settings and commands from intent to
 # api commands:
 #
-const COMMANDS = Dict("ON", "ON",
-                "OFF", "OFF",
-                "colour", "COLOUR",
-                "white", "WHITE",
-                "warm", "WARM",
-                "cold", "COLD",
-                "red", "RED",
-                "orange", "ORANGE",
-                "green", "GREEN",
-                "blue", "BLUE",
-                "pink", "PINK",
-                "dark", "DARK",
-                "bright", "BRIGHT",
-                "dark", "DARK",
-                "medium_bright", "MEDIUM"
+const COMMANDS = Dict("ON" => "ON",
+                "OFF" => "OFF",
+                "colour" => "COLOUR",
+                "white" => "WHITE",
+                "warm" => "WARM",
+                "cold" => "COLD",
+                "red" => "RED",
+                "orange" => "ORANGE",
+                "green" => "GREEN",
+                "blue" => "BLUE",
+                "pink" => "PINK",
+                "dark" => "DARK",
+                "bright" => "BRIGHT",
+                "dark" => "DARK",
+                "medium_bright" => "MEDIUM"
                )
 
 # Stepsizes for settings:
