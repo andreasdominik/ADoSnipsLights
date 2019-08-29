@@ -63,17 +63,18 @@ rainbow(10) "#FF0000FF" "#FF9900FF" "#CCFF00FF" "#33FF00FF"
 function changeShellybulbValues(ip, command)
 
     status = getShellyStatus(ip)
+    Snips.printDebug("command: $command, status: $status")
     if command == "colder"
-        newTemp = status[:temp] - TEMP_STEP
-        if newTemp < 3000
-            newTemp = 3000
+        newTemp = status[:temp] + TEMP_STEP
+        if newTemp > 6500
+            newTemp = 6500
         end
         status[:temp] = newTemp
 
     elseif command == "warmer"
-        newTemp = status[:temp] + TEMP_STEP
-        if newTemp < 6500
-            newTemp = 6500
+        newTemp = status[:temp] - TEMP_STEP
+        if newTemp < 3000
+            newTemp = 3000
         end
         status[:temp] = newTemp
 
