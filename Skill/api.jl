@@ -10,24 +10,41 @@ function doSwitch(deviceId, command)
 
     # map intent-command to api-command:
     #
-    if haskey(COMMANDS, command)
+    if command in ["ON", "OFF"]
 
-        apiCommand = COMMANDS[command]
+        action = (command == "ON") ? :on : :off
 
-        if driver == "shellybulb"
+        if driver == "shelly1"
             ip = deviceParams[4]
-            switchShellybulb(ip, apiCommand)
+            Snips.switchShelly1(ip, action)
+
+        elseif driver == "shellybulb"
+            ip = deviceParams[4]
+            switchShellybulb(ip, command)
 
         elseif driver == "GPIO"
             gpio = deviceParams[4]
-            switchGPIO(gpio, apiCommand)
+            Snips.setGPIO(gpio, action)
         end
-         # ... relative commands goes here:
+
+    # shellybulb colours:
+    #
+    elseif haskey(COMMANDS, command)
+
+        action = COMMANDS[command]
+        if driver == "shellybulb"
+            ip = deviceParams[4]
+            switchShellybulb(ip, action)
+        end
+
+    # ... relative commands goes here:
+    #
     elseif command in ["colder", "warmer", "brighter", "darker", "next_colour"]
 
         if driver == "shellybulb"
             ip = deviceParams[4]
-            changeShellybulbValues(ip, command)
+            action = command
+            changeShellybulbValues(ip, action)
         end
     else
         Snips.publishSay(:what_to_do, lang = LANG)
