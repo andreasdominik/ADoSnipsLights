@@ -114,13 +114,14 @@ The trigger must have the following JSON format:
       "origin" : "ADoSnipsScheduler",
       "time" : timeString,
       "trigger" : {
-        "room" : "default",
-        "device" : "floor_lamp",
+        "device" : "my_big_light",
         "onOrOff" : "ON",
         "settings" : "undefined"
       }
     }
 
+`device` must match the unique device name in the list of devices
+in config.ini.
 """
 function triggerLight(topic, payload)
 
@@ -131,32 +132,19 @@ function triggerLight(topic, payload)
     haskey( payload, :trigger) || return false
     trigger = payload[:trigger]
 
-    haskey( trigger, :room) || return false
     haskey( trigger, :device) || return false
     haskey( trigger, :onOrOff) || return false
     haskey( trigger, :settings) || return false
 
-    # find the device and room:
-    #
-    slots = trigger
 
     # ignore intent if it is not a light.
     # ignore intent if it is not ON or OFF:
     #
-    slots[:device] in LIGHTS || return false
-    slots[:onOrOff] in ["ON", "OFF"] || return false
+    Snips.printDebug("light trigger: $trigger")
+    !Snips.isInConfig(trigger[:device]) || return false
+    trigger[:onOrOff] in ["ON", "OFF"] || return false
 
-    # get matched devices from config.ini and find correct one:
-    #
-    matchedDevices = getDevicesFromConfig(slots)
-
-    if length(matchedDevices) < 1
-        return false
-    else
-        for d in matchedDevices
-            doSwitch(d, slots[:onOrOff])
-        end
-    end
+    doSwitch(trigger[:device], trigger[:onOrOff])
     return false  # follow up with hotword
 end
 
