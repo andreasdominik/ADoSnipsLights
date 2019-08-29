@@ -48,11 +48,11 @@ WHITE)
   ;;
 WARM)
   URL="/settings?mode=white"
-  URL2="/light/0?temp=4100"
+  URL2="/light/0?temp=3000"
   ;;
 COLD)
   URL="/settings?mode=white"
-  URL2="/light/0?temp=3000"
+  URL2="/light/0?temp=6500"
   ;;
 RED)
   URL="/settings?mode=color"
