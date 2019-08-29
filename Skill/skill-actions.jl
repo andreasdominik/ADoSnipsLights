@@ -140,8 +140,7 @@ function triggerLight(topic, payload)
     # ignore intent if it is not a light.
     # ignore intent if it is not ON or OFF:
     #
-    Snips.printDebug("light trigger: $trigger")
-    !Snips.isInConfig(trigger[:device]) || return false
+    Snips.isInConfig(trigger[:device]) || return false
     trigger[:onOrOff] in ["ON", "OFF"] || return false
 
     doSwitch(trigger[:device], trigger[:onOrOff])
@@ -176,11 +175,7 @@ end
 
 function getDevicesFromConfig(slots)
 
-    devices = Snips.getConfig(:devices)
-    if devices isa AbstractString
-        devices = [devices]
-    end
-
+    devices = Snips.getConfig(:devices, multiple = true)
     Snips.printDebug(devices)
     Snips.printDebug(slots)
 
