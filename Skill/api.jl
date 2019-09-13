@@ -19,7 +19,7 @@ function doSwitch(deviceId, command)
             action = :push
         end
 
-        if driver == "shelly1"
+        if driver == "shelly1" || driver == "shellyplug"
             ip = deviceParams[4]
             Snips.switchShelly1(ip, action)
 

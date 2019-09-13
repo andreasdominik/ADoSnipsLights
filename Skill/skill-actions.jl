@@ -122,6 +122,7 @@ The trigger must have the following JSON format:
 
 `device` must match the unique device name in the list of devices
 in config.ini.
+`onOrOff` is one of `ON`, `OFF`
 """
 function triggerLight(topic, payload)
 
