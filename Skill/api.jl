@@ -15,11 +15,12 @@ function doSwitch(deviceId, command)
         # check, if light has an push/relay switch:
         #
         action = (command == "ON") ? :on : :off
-        if length(deviceParams) > 4 && deviceParams[4] == "push"
+        Snips.printDebug("params for device $deviceId are: $deviceParams")
+        if (length(deviceParams) > 4) && occursin("push", deviceParams[5])
             action = :push
         end
 
-        if driver == "shelly1" || driver == "shellyplug"
+        if (driver == "shelly1") || (driver == "shellyplug")
             ip = deviceParams[4]
             Snips.switchShelly1(ip, action)
 
