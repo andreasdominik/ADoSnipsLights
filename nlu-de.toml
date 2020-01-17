@@ -1,0 +1,86 @@
+# Intent definition for Lights skill
+#
+#  (c) A. Dominik, 2020
+#
+skill = "ADoSnipsLightsDE"
+developer = "andreasdominik"
+
+
+[inventory]
+intents = ["SetLightsSettings"]
+slots = ["room", "light_settings", "device"]
+
+
+# define slots:
+# Types: Any/List/InstantTime/Currency/Number/Ordinal/...
+#
+[room]
+slot_type = "ListOfValues"
+
+        [room.synonyms]
+        "house" = ["ganzen Haus", "ganzes Haus", "Haus"]
+        "dining" = ["Esszimmer"]
+        "stairs" = ["Treppenhaus", "Flur"]
+        "kitchen" = ["Küche"]
+        "bedroom" = "Schlafzimmer"
+        "guest" = "Gästezimmer"
+        "Andreas" = ["Andreas Büro", "Büro von Andreas", "ADos Büro"]
+        "default" = ["wohnzimmer"]
+
+[light_settings]
+slot_type = "ListOfValues"
+
+        [light_settings.synonyms]
+        "next_colour" = ["nächste Farbe", "andere Farbe"]
+        "dark" = ["dunkel", "ganz dunkel"]
+        "bright" = ["hell", "ganz hell", "maximal hell", "maximum hell"]
+        "colour" = ["Farbe", "farbig", "bunt"]
+        "white" = "weiß"
+        "medium_bright" = ["mittelhell", "halbhell", "mittel"]
+        "pink" = ["lila", "violett", "pink"]
+        "colder" = "kälter"
+        "warmer" = "wärmer"
+        "cold" = ["kalt", "ganz kalt", "so kalt wie möglich"]
+        "warm" =  ["warm", "ganz warm", "so warm wie möglich"]
+        "orange" = "orange"
+        "blue" = "blue"
+        "red" = "rot"
+        "darker" = ["weinger", "dimme", "gedimmt", "dunkler"]
+        "brighter" = ["mehr", "heller"]
+
+[on_or_off]
+slot_type = "ListOfValues"
+
+        [on_or_off.synonyms]
+        ON = ["ein", "an", "einschalten", "anschalten",
+              "anmachen", "öffne"]
+        OFF = ["aus", "ab", "ausschalten", "abschalten"]
+
+
+[device]
+slot_type = "ListOfValues"
+
+        [device.synonyms]
+        desk_light = ["Schreibtischlampe", "Arbeitsleuchte", "Schreibtischleuchte"]
+        wall_light = "Wandlampe"
+        main_light = ["Deckenlicht", "Licht an der Decke", "großes Licht"]
+        floor_light = ["Stehlampe"]
+        light = ["Licht", "Lampe", "Beleuchtung", "hell"]
+        TV_light = ["Licht am Fernseher", "TV-Licht", "Fernsehlicht"]
+
+
+
+# define phrases for intent recognition:
+# exact, regex, part
+#
+[SetLightsSettings]
+disable_on_start = false
+
+simple1 = "exact: <<Bitte|>> mache? <<bitte|>> <<das|den|die>> <<device>> <<light_settings>>"
+s1_with_room = "exact: <<Bitte|>> mache? <<bitte|>> <<das|den|die>> <<device>> <<im|in der>> <<room>> <<light_settings>>"
+
+simple2 = "exact: <<bitte|>> ändere <<bitte|>> <<die|das>> <<device>> <<.*>> <<light_settings>>"
+s2_with_room = "exact: <<bitte|>> ändere <<bitte|>> <<die|das>> <<device>> <<im|in der>> <<room>> .* <<light_settings>>"
+
+imperative = "exact: <<bitte|>> <<stelle|regle|mach>> <<bitte|>> <<das|die>> <<device>> <<light_settings>>"
+i_with_room = "exact: <<bitte|>> <<stelle|regle|mach>> <<bitte|>> <<das|die>> <<device>> <<im|in der>> <<room>> .* <<light_settings>>"
