@@ -1,0 +1,12 @@
+[global]
+
+# list of unique names of devices:
+#
+devices=tvlight,kitchen,stairs,bedroom,mobile-plug
+
+tvlight=default,floor_light,shellybulb,192.168.0.200
+kitchen=kitchen,main_light,shelly1,192.168.0.201
+stairs=stairs,main_light,shelly1,192.168.0.202,push
+bedroom=bedroom,main_light,shelly1,192.168.0.203
+mobile-plug=Andreas,desk_light,shellyplug,192.168.0.204
+[secret]
