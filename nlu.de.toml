@@ -2,7 +2,7 @@
 #
 #  (c) A. Dominik, 2020
 #
-skill = "ADoSnipsLightsDE"
+skill = "ADoSnipsLights"
 developer = "andreasdominik"
 
 
@@ -25,6 +25,7 @@ slot_type = "ListOfValues"
         "bedroom" = "Schlafzimmer"
         "guest" = "Gästezimmer"
         "Andreas" = ["Andreas Büro", "Büro von Andreas", "ADos Büro"]
+        "office" = ["Büro"]
         "default" = ["wohnzimmer"]
 
 [light_settings]
@@ -76,11 +77,11 @@ slot_type = "ListOfValues"
 [SetLightsSettings]
 disable_on_start = false
 
-simple1 = "exact: <<Bitte|>> mache? <<bitte|>> <<das|den|die>> <<device>> <<light_settings>>"
-s1_with_room = "exact: <<Bitte|>> mache? <<bitte|>> <<das|den|die>> <<device>> <<im|in der>> <<room>> <<light_settings>>"
+simple1 = "partial: <<Bitte|>> mache? <<bitte|>> <<das|den|die>> <<device>> <<light_settings>>"
+s1_with_room = "partial: <<Bitte|>> mache? <<bitte|>> <<das|den|die>> <<device>> <<im|in der>> <<room>> <<light_settings>>"
 
-simple2 = "exact: <<bitte|>> ändere <<bitte|>> <<die|das>> <<device>> <<.*>> <<light_settings>>"
-s2_with_room = "exact: <<bitte|>> ändere <<bitte|>> <<die|das>> <<device>> <<im|in der>> <<room>> .* <<light_settings>>"
+simple2 = "partial: <<bitte|>> ändere <<bitte|>> <<die|das>> <<device>> <<.*>> <<light_settings>>"
+s2_with_room = "partial: <<bitte|>> ändere <<bitte|>> <<die|das>> <<device>> <<im|in der>> <<room>> .* <<light_settings>>"
 
-imperative = "exact: <<bitte|>> <<stelle|regle|mach>> <<bitte|>> <<das|die>> <<device>> <<light_settings>>"
-i_with_room = "exact: <<bitte|>> <<stelle|regle|mach>> <<bitte|>> <<das|die>> <<device>> <<im|in der>> <<room>> .* <<light_settings>>"
+imperative = "partial: <<bitte|>> <<stelle|regle|mach>> <<bitte|>> <<das|die>> <<device>> <<light_settings>>"
+i_with_room = "partial: <<bitte|>> <<stelle|regle|mach>> <<bitte|>> <<das|die>> <<device>> <<im|in der>> <<room>> .* <<light_settings>>"

@@ -83,16 +83,8 @@ const COLOURS_STEP = [(255,0,0),
 
 # Language-dependent settings:
 #
-if LANG == "de"
-    Snips.registerIntentAction("ADoSnipsOnOffDE", switchLight)
-    Snips.registerIntentAction("SetLightsSettings", setLightSettings)
-elseif LANG == "en"
-    Snips.printLog("Language en is not yet supported!")
-    # Snips.registerIntentAction("ADoSnipsOnOffDE", switchLight)
-    # Snips.registerIntentAction("SetLightsSettings", setLightSettings)
-else
-    Snips.printLog("Language $LANG is not yet supported!")
-end
+Snips.registerIntentAction("ADoSnipsOnOff", switchLight)
+Snips.registerIntentAction("SetLightsSettings", setLightSettings)
 
 # add system triggers:
 #

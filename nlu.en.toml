@@ -1,0 +1,71 @@
+# Intent definition for Lights skill
+#
+#  (c) A. Dominik, 2020
+#
+skill = "ADoSnipsLights"
+developer = "andreasdominik"
+
+
+[inventory]
+intents = ["SetLightsSettings"]
+slots = ["room", "light_settings", "device"]
+
+
+# define slots:
+# Types: Any/List/InstantTime/Currency/Number/Ordinal/...
+#
+[room]
+slot_type = "ListOfValues"
+
+        [room.synonyms]
+        "dining" = ["dining room"]
+        "stairs" = ["stairs", "traircase", "stairway"]
+        "kitchen" = ["kitchen"]
+        "bedroom" = "bedroom"
+        "guest" = "guest goom"
+        "office" = ["office"]
+        "default" = ["living room"]
+
+[light_settings]
+slot_type = "ListOfValues"
+
+        [light_settings.synonyms]
+        "next_colour" = ["to the next colou?r"]
+        "dark" = ["dark", "very dark"]
+        "bright" = ["bright", "light up"]
+        "colour" = ["colour", "color", "colored", "coloured"]
+        "white" = "white"
+        "medium_bright" = ["medium"]
+        "pink" = ["purple", "pink"]
+        "colder" = "colder"
+        "warmer" = "warmer"
+        "cold" = ["cold", "very cold", "as cold as possible"]
+        "warm" =  ["warm", "very warm", "as warm as possible"]
+        "orange" = "orange"
+        "blue" = "blue"
+        "red" = "red"
+        "darker" = ["darker", "dimmed"]
+        "brighter" = ["brighter"]
+
+
+[device]
+slot_type = "ListOfValues"
+
+        [device.synonyms]
+        desk_light = ["desk lamp", "desk light"]
+        wall_light = "wall light"
+        main_light = ["mail light", "ceiling light", "ceiling lamp", "big lamp"]
+        floor_light = ["floor light"]
+        light = ["light", "lamp"]
+        TV_light = ["light at the tv", "TV light"]
+
+
+
+# define phrases for intent recognition:
+# exact, regex, part
+#
+[SetLightsSettings]
+disable_on_start = false
+
+simple1 = "partial: <<please|>> <<turn|change>> <<the>> <<device>> <<light_settings>> <<pleaase|>>"
+simple1_w_room = "partial: <<please|>> <<turn|change>> <<the>> <<device>> in the <<room>> <<light_settings>> <<pleaase|>>"
