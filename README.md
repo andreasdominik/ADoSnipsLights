@@ -34,3 +34,16 @@ For more details and installation of the framework look
 in the documentation of the
 [ADoSnipsQnD-framework](https://andreasdominik.github.io/ADoSnipsQnD/dev)
 and [Susi](https://github.com/andreasdominik/Susi).
+
+### Install skill for Susi
+* Change to the root skills directory (default `/opt/Susi/Skills`)
+* clone this repo
+* copy the 'config.ini.template' to 'config.ini' and
+  edit the file to configure your lights.
+
+```
+cd /opt/Susi/Skills
+git clone https://github.com/andreasdominik/ADoSnipsLights.git
+cd ADoSnipsLights
+cp config.ini.template config.ini
+```
